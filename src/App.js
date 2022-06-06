@@ -1,4 +1,5 @@
 import { ChevronRightIcon } from "@heroicons/react/solid";
+import SearchInput from "./components/SearchInput";
 
 const articles = [
   {
@@ -40,6 +41,7 @@ export default function App() {
               Search wikipedia articles.
             </p>
           </div>
+          <SearchInput />
           <div className="mt-12">
             <h2 className="text-sm font-semibold text-gray-500 tracking-wide uppercase">
               Search results
