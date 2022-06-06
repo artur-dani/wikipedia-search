@@ -1,34 +1,16 @@
+import { useEffect, useState } from "react";
 import SearchInput from "./components/SearchInput";
 import SearchResults from "./components/SearchResults";
-
-const articles = [
-  {
-    id: "1",
-    title: "Article 1",
-    description: "lorem ipsum dolor sit amet",
-    url: "https://www.google.com",
-  },
-  {
-    id: "2",
-    title: "Article 2",
-    description: "lorem ipsum dolor sit amet",
-    url: "https://www.google.com",
-  },
-  {
-    id: "3",
-    title: "Article 3",
-    description: "lorem ipsum dolor sit amet unum quidem quisquam",
-    url: "https://www.google.com",
-  },
-  {
-    id: "4",
-    title: "Title Article 4",
-    description: "lorem ipsum dolor sit amet unum quidem quisquam adipisci",
-    url: "https://www.google.com",
-  },
-];
+import useSearchWikipedia from "./hooks/useSearchWikipedia";
 
 export default function App() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const { articles, loading, error } = useSearchWikipedia(searchTerm);
+
+  useEffect(() => {
+    console.log("articles", articles);
+  }, [articles]);
+
   return (
     <div className="bg-white">
       <main className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,9 +28,12 @@ export default function App() {
             </h1>
             <p className="mt-2 text-lg text-gray-500">The Free Encyclopedia</p>
           </div>
-          <SearchInput />
+          <SearchInput onChange={setSearchTerm} />
           <div className="mt-12">
-            <SearchResults articles={articles} />
+            {loading && <div>Loading...</div>}
+            {searchTerm && !loading && !error && (
+              <SearchResults articles={articles} />
+            )}
           </div>
         </div>
       </main>
