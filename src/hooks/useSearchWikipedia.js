@@ -13,6 +13,7 @@ const useSearchWikipedia = (searchPhrase) => {
     if (!searchPhrase) {
       return;
     }
+    setLoading(true);
     axios
       .get(
         `${API_URL}search/page?${qs.stringify({ q: searchPhrase, limit: 5 })}`
