@@ -10,13 +10,10 @@ export default function App() {
   const { articles, loading, error } = useSearchWikipedia(searchTerm);
 
   const handleChange = (value) => {
-    if (value.length < 3) {
-      return;
-    }
-
-    setSearchTerm(value);
+    if (!value || value.length > 2) setSearchTerm(value);
   };
 
+  // This is an optimised function that runs only after 300ms has past without typing to limit request calls on input change for better performance and UX
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const optimizedFn = useCallback(debounce(handleChange, 300), []);
 
