@@ -40,6 +40,7 @@ export default function App() {
           <SearchInput onChange={optimizedFn} />
           <div className="mt-12">
             {loading && <Spinner />}
+            {error && <div>{error.message || "Something went wrong!"}</div>}
             {searchTerm && !loading && !error && (
               <SearchResults articles={articles} searchTerm={searchTerm} />
             )}
