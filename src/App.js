@@ -17,7 +17,7 @@ export default function App() {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const optimizedFn = useCallback(debounce(handleChange, 1000), []);
+  const optimizedFn = useCallback(debounce(handleChange, 300), []);
 
   return (
     <div className="bg-white">
