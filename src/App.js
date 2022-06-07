@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import SearchInput from "./components/SearchInput";
 import SearchResults from "./components/SearchResults";
+import Spinner from "./components/Spinner";
 import useSearchWikipedia from "./hooks/useSearchWikipedia";
 import { debounce } from "./utils";
 
@@ -38,7 +39,7 @@ export default function App() {
           </div>
           <SearchInput onChange={optimizedFn} />
           <div className="mt-12">
-            {loading && <div>Loading...</div>}
+            {loading && <Spinner />}
             {searchTerm && !loading && !error && (
               <SearchResults articles={articles} searchTerm={searchTerm} />
             )}
