@@ -1,15 +1,23 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import SearchInput from "./components/SearchInput";
 import SearchResults from "./components/SearchResults";
 import useSearchWikipedia from "./hooks/useSearchWikipedia";
+import { debounce } from "./utils";
 
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const { articles, loading, error } = useSearchWikipedia(searchTerm);
 
-  useEffect(() => {
-    console.log("articles", articles);
-  }, [articles]);
+  const handleChange = (value) => {
+    if (value.length < 3) {
+      return;
+    }
+
+    setSearchTerm(value);
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const optimizedFn = useCallback(debounce(handleChange, 1000), []);
 
   return (
     <div className="bg-white">
@@ -28,11 +36,11 @@ export default function App() {
             </h1>
             <p className="mt-2 text-lg text-gray-500">The Free Encyclopedia</p>
           </div>
-          <SearchInput onChange={setSearchTerm} />
+          <SearchInput onChange={optimizedFn} />
           <div className="mt-12">
             {loading && <div>Loading...</div>}
             {searchTerm && !loading && !error && (
-              <SearchResults articles={articles} />
+              <SearchResults articles={articles} searchTerm={searchTerm} />
             )}
           </div>
         </div>

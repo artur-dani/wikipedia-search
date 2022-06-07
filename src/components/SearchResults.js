@@ -1,12 +1,13 @@
 import { ChevronRightIcon } from "@heroicons/react/solid";
 
-export default function SearchResults({ articles }) {
+export default function SearchResults({ articles, searchTerm }) {
   return (
     <>
       <h2 className="text-sm font-semibold text-gray-500 tracking-wide uppercase">
         Search results
       </h2>
-      <ul className="mt-4 border-t border-b border-gray-200 divide-y divide-gray-200">
+      {articles.length > 0 ? (
+        <ul className="mt-4 border-t border-b border-gray-200 divide-y divide-gray-200">
         {articles.map((article) => (
           <li
             key={article.id}
@@ -32,6 +33,11 @@ export default function SearchResults({ articles }) {
           </li>
         ))}
       </ul>
+      ) : (
+        <p className="mt-4 text-sm text-gray-500">
+          No results found for <strong>{searchTerm}</strong>
+        </p>
+      )}
     </>
   );
 }
