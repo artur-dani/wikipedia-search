@@ -22,3 +22,11 @@ then you can spin a local server by running:
 ```
 
 ## Notes
+
+The search API request is optimised by using debounce on 300ms
+
+## Posible Improvments
+
+* Cache the search results
+* add a `load more` button to load more results for the same search phrase
+* add view state for the case when user searches for a phrase less then 3 characters (since the app supports only phrases longer than 2 chars)
